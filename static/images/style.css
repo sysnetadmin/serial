@@ -1,0 +1,51 @@
+/* body {
+  background-color: #dc3545;
+} */
+.custom-text-color {
+  color: #514a49; /* Replace with your desired color code */
+  font-family: bold;
+  font-size: 30px;
+}
+
+/* Add a border to the left and bottom of the first column header */
+#example th:first-child {
+  border: 1.5px solid #000; /* Adjust the border properties as needed */
+}
+
+/* Add a border to the left and bottom of the first column cells */
+#example td:first-child {
+  border-left: 1.5px solid #000; /* Adjust the border properties as needed */
+  border-right: 1.5px solid #000;
+}
+/* Add a border to the bottom of the entire table */
+#example tbody tr:last-child td:first-child {
+  border-bottom: 1.5px solid #000; /* Adjust the border properties as needed */
+}
+
+
+
+
+
+#indexTable thead th {
+    background-color: #878f99;
+    /* Add any other styles you want for the header cells */
+    color: #fff; /* Text color */
+}
+
+#example thead th {
+    background-color: #878f99;
+    /* Add any other styles you want for the header cells */
+    color: #fff; /* Text color */
+}
+
+
+.table-container-backgound{
+  background-color: #F5F7F8;
+  
+}
+
+.table-backgound{
+  background-color: #e4dfdf;
+    
+    border: 1px solid #ecedef;
+}
