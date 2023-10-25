@@ -20,16 +20,18 @@ func GetItemList(c *fiber.Ctx) error {
 
 	if CheckInvoiceIfExist(formInput.Invoice) {
 		return c.Render("index", fiber.Map{
-			"Success": false,
-			"Message": "Invoice Number Already Encoded!",
+			"UserName": GetSessionValue(c, "userId"),
+			"Success":  false,
+			"Message":  "Invoice Number Already Encoded!",
 		})
 	}
 
 	Items := GetList(formInput.Invoice)
 	if len(Items) == 0 {
 		return c.Render("index", fiber.Map{
-			"Success": false,
-			"Message": "Invalid Invoice Number!",
+			"UserName": GetSessionValue(c, "userId"),
+			"Success":  false,
+			"Message":  "Invalid Invoice Number!",
 		})
 	}
 
@@ -43,8 +45,9 @@ func GetItemList(c *fiber.Ctx) error {
 	msgResp := CheckProductIfIncludedInList(Items[0].ItemList)
 	if msgResp != "" {
 		return c.Render("index", fiber.Map{
-			"Success": false,
-			"Message": msgResp,
+			"UserName": GetSessionValue(c, "userId"),
+			"Success":  false,
+			"Message":  msgResp,
 		})
 	}
 
@@ -52,14 +55,15 @@ func GetItemList(c *fiber.Ctx) error {
 	invoiceNumber := SavingSession(c, "invoice", formInput.Invoice)
 	itemCodes = []string{}
 	return c.Render("scan", fiber.Map{
-		"Invoice": invoiceNumber,
-		"Data":    ItemList,
+		"UserName": GetSessionValue(c, "userId"),
+		"Invoice":  invoiceNumber,
+		"Data":     ItemList,
 	})
 }
 
 func CancelScan(c *fiber.Ctx) error {
 	ItemsResponse = []model.ItemList{}
-	return c.Redirect("/?" + "branchCode=" + GetSessionValue(c, "branchCode") + "&bmsId=" + GetSessionValue(c, "bmsId") + "&userId=" + GetSessionValue(c, "userId"))
+	return c.Redirect("/?" + "branchCode=" + GetSessionValue(c, "branchCode") + "&bmsId=" + GetSessionValue(c, "bmsId") + "&userName=" + GetSessionValue(c, "userId"))
 }
 
 func QrScan(c *fiber.Ctx) error {
@@ -76,10 +80,11 @@ func QrScan(c *fiber.Ctx) error {
 			if len(formInput.Scan) != 29 {
 
 				return c.Render("scan", fiber.Map{
-					"Success": false,
-					"Message": "Illegal Qr Code Format!",
-					"Data":    itemList,
-					"Invoice": invoiceNumber,
+					"UserName": GetSessionValue(c, "userId"),
+					"Success":  false,
+					"Message":  "Illegal Qr Code Format!",
+					"Data":     itemList,
+					"Invoice":  invoiceNumber,
 				})
 			}
 
@@ -92,31 +97,35 @@ func QrScan(c *fiber.Ctx) error {
 				if isDone {
 					InsertToDetails(itemCodes, headerId)
 					return c.Render("index", &fiber.Map{
-						"Success": true,
-						"Message": "Transaction Complete!",
+						"UserName": GetSessionValue(c, "userId"),
+						"Success":  true,
+						"Message":  "Transaction Complete!",
 					})
 				}
 				return c.Render("scan", fiber.Map{
-					"Data":    itemList,
-					"Invoice": invoiceNumber,
+					"UserName": GetSessionValue(c, "userId"),
+					"Data":     itemList,
+					"Invoice":  invoiceNumber,
 				})
 			}
 
 			return c.Render("scan", fiber.Map{
-				"Success": false,
-				"Message": "Invoice Item Already Counted In Full!",
-				"Data":    itemList,
-				"Invoice": invoiceNumber,
+				"UserName": GetSessionValue(c, "userId"),
+				"Success":  false,
+				"Message":  "Invoice Item Already Counted In Full!",
+				"Data":     itemList,
+				"Invoice":  invoiceNumber,
 			})
 
 		}
 	}
 
 	return c.Render("scan", fiber.Map{
-		"Success": false,
-		"Message": "Qr Code Mismatch!",
-		"Data":    itemList,
-		"Invoice": invoiceNumber,
+		"UserName": GetSessionValue(c, "userId"),
+		"Success":  false,
+		"Message":  "Qr Code Mismatch!",
+		"Data":     itemList,
+		"Invoice":  invoiceNumber,
 	})
 }
 

@@ -215,3 +215,20 @@ func InsertToDetails(itemCodes []string, header_id int) {
 }
 
 //balikan ko bukas
+
+func uppercaseFirstLetter(s string) string {
+	if s == "" {
+		return s
+	}
+	output := []string{}
+
+	for _, v := range strings.Fields(s) {
+
+		v := strings.ToUpper(v[:1]) + v[1:]
+
+		output = append(output, v)
+	}
+
+	// Convert the first character to uppercase
+	return strings.Join(output, " ")
+}
