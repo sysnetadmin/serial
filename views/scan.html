@@ -13,9 +13,32 @@
   <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
-
+<style>
+  .navbar {
+    background-color: #dc3545;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+  }
+</style>
 <body>
-  {{template "navbar"}}
+  <nav class="navbar navbar-expand  border border-1 shadow-sm">
+
+    </div>
+    </div>
+    <div class="container-fluid text-center">
+      <img src="/static/images/logo.png" alt="Logo" height="34" class="d-inline-block align-text-top" />
+      <ul class="navbar-nav ms-auto">
+        <!-- <li class="nav-item mx-3"> 
+        <a class="nav-link"  href="https://www.google.com" target="_blank">Go to BMS</a>
+      </li> -->
+        <li>
+          <div class="col-12 ">{{.UserName}}</div>
+          <div class="col-12">(BMS Sys Admin)</div>
+        </li>
+      </ul>
+
+    </div>
+  </nav>
   <div class="container-lg border mt-3 rounded p-3  table-container-backgound">
     <div class="container text-center">
       <h3 class="mb-0">{{.Invoice}}</h3>
@@ -49,7 +72,7 @@
             <table id="example" class="table  table-hover table-bordered table-bordered" style="width: 100%">
               <thead>
                 <tr>
-                  <th >Scan Quantity</th>
+                  <th>Scan Quantity</th>
                   <th>Order Quantity</th>
                   <th>Item Code</th>
                   <th>Item Description</th>
